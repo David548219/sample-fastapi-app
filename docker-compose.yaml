@@ -1,0 +1,21 @@
+version: "3.2"
+services:
+  sample-fastapi-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: sample-fastapi-app
+    restart: unless-stopped
+    environment:
+      # URI to MongoDB instance
+      MONGO_URI: "mongodb://mongodb:27017"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    logging:
+      driver: none
